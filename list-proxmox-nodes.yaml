@@ -2,6 +2,9 @@
 - name: This Playbook will List the Proxmox nodes
   gather_facts: false
 
+# this is some bs
+#
+
   tasks:
     - name: List existing nodes
       community.general.proxmox_node_info:
