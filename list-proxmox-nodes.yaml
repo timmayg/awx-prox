@@ -1,9 +1,8 @@
 ---
-- name: This Playbook will create a new Cloudflare DNS record
-  hosts: localhost
+- name: This Playbook will List the Proxmox nodes
   gather_facts: false
 
-    tasks:
+  tasks:
     - name: List existing nodes
       community.general.proxmox_node_info:
         api_host: {{ api_host }}
