@@ -10,7 +10,7 @@
         api_user: "{{ api_user }}"
         api_token_id: "{{ api_token_id }}"
         api_token_secret: "{{ api_token_secret }}"
-        node: prox-host-01
+        node: "prox-host-01"
       register: result
 
     - name: Print all VMs
