@@ -1,18 +1,21 @@
 ---
-- name: Retrieve list of Proxmox VMs
+- name: This Playbook will List the Proxmox VMs
   hosts: localhost
   gather_facts: false
 
   tasks:
-    - name: Gather Proxmox VM info
+    - name: List Proxmox VMs
       community.general.proxmox_vm_info:
         api_host: "{{ api_host }}"
         api_user: "{{ api_user }}"
-        api_token_id: "{{ api_token_id }}"
-        api_token_secret: "{{ api_token_secret }}"
+        api_token_id: "{{ api_token_id | default(omit) }}"
+        api_token_secret: "{{ api_token_secret | default(omit) }}"
         # node: "prox-host-01"
       register: result
 
     - name: Print all VMs
       ansible.builtin.debug:
         var: result
+
+#        api_token_id: "{{ api_token_id }}"
+#        api_token_secret: "{{ api_token_secret }}"
