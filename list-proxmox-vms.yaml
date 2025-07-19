@@ -15,4 +15,4 @@
 
     - name: Print all VMs
       ansible.builtin.debug:
-        var: result.vms
+        var: result
