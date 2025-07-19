@@ -5,27 +5,42 @@
   collections:
     - community.general
   tasks:
-    - name: Create Windows VM
+    - name: Create VM with 1 10GB SATA disk and an EFI disk, with Secure Boot disabled by default
       community.general.proxmox_kvm:
-        api_user: "{{ pve_user }}"
-        api_password: "{{ pve_password }}"
-        api_host: "{{ pve_host }}"
-        vmid: 120
-        name: windows-server
-        cores: 4
-        memory: 8192
-        scsihw: virtio-scsi-single
-        boot: c
-        net0: virtio,bridge=vmbr0
-        ide2: "local:iso/virtio-win.iso,media=cdrom"
-        sata0: "local:iso/windows-server.iso,media=cdrom"
-        scsi0: "local-lvm:100G"
-        ostype: win11
-        ciuser: administrator
-        cipassword: YourSecurePassword123
-        agent: 1
-        onboot: 1
+        api_host: "{{ api_host }}"
+        api_user: "{{ api_user }}"
+        api_token_id: "{{ api_token_id | default(omit) }}"
+        api_token_secret: "{{ api_token_secret | default(omit) }}"
 
+        node: prox-host-01
+        name: test-vm
+
+        sockets: 1
+        cores: 1
+        vcpus: 2
+
+        memory: 2048
+
+        sata:
+          sata0: 'VMs_LVM:10,format=raw'
+        scsih0:
+          storage: prox-storage
+          size: 10G
+          format: raw
+
+        bios: ovmf
+        efidisk0:
+          storage: prox-storage
+          format: raw
+          efitype: 4m
+          pre_enrolled_keys: false
+        tpmstate:
+          storage: prox-storage
+          version: 2.0
+        localtime: true
+
+
+ 
 
 
 
