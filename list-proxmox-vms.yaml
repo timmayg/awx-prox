@@ -13,9 +13,11 @@
         # node: "prox-host-01"
       register: result
 
+    - name: Print VM details
+      ansible.builtin.debug:
+        msg: "Node: {{ item.node }} | Name: {{ item.name }} | VMID: {{ item.vmid }}"
+      loop: "{{ result.proxmox_vms }}"
+
     - name: Print all VMs
       ansible.builtin.debug:
-        var: result
-
-#        api_token_id: "{{ api_token_id }}"
-#        api_token_secret: "{{ api_token_secret }}"
+        var: result.proxmox_vms
