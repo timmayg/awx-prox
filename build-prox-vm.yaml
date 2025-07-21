@@ -4,39 +4,31 @@
   gather_facts: no
 
   tasks:
-    - name: Create VM with 1 10GB SATA disk and an EFI disk, with Secure Boot disabled by default
+    - name: Create RHEL 10 AAP Lab VM
       community.general.proxmox_kvm:
         api_host: "{{ api_host }}"
         api_user: "{{ api_user }}"
         api_token_id: "{{ api_token_id | default(omit) }}"
         api_token_secret: "{{ api_token_secret | default(omit) }}"
-
-        node: prox-host-01
-        name: test-vm
-
+        node: "prox-host-01"
+        vmid: "200"
+        name: test-rhel-01
+        cores: 8
         sockets: 1
-        cores: 1
-        vcpus: 2
-
-        memory: 2048
-
-        scsi0:
-          storage: prox-storage
-          size: 10G
-          format: raw
-
-        bios: ovmf
-        efidisk0:
-          storage: prox-storage
-          format: raw
-          efitype: 4m
-          pre_enrolled_keys: false
-        tpmstate:
-          storage: prox-storage
-          version: 2.0
-        localtime: true
-
-
+        cpu: host
+        memory: 32768  # 32 GB in MB
+        scsi:
+          scsi0: "local-zfs:250,format=raw,cache=writeback,discard=on"
+        scsihw: virtio-scsi-pci
+        boot: c
+        ostype: l26
+        net0: "virtio,bridge=vmbr0,queues=8"
+        onboot: yes
+        agent: 1
+        ciuser: "{{ rhel_user }}"
+        cipassword: "{{ rhel_password }}"
+        sshkeys: "{{ lookup('file', '~/.ssh/id_rsa.pub') }}"
+      delegate_to: localhost
  
     - name: Timmay HARD STOP this Playbook
       ansible.builtin.meta: end_play
