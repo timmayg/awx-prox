@@ -14,10 +14,7 @@
         vmid: "200"
         name: test-rhel-01
         bios: ovmf
-        efidisk0:
-          efitype: 4m
-          pre_enrolled_keys: true
-          storage: prox-storage
+        efidisk0: "efitype: 4m,pre_enrolled_keys: true,storage: prox-storage"
         cores: 8
         sockets: 1
         cpu: host
