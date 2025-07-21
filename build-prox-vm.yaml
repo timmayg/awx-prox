@@ -18,7 +18,7 @@
         cpu: host
         memory: 32768  # 32 GB in MB
         scsi:
-          scsi0: "local-zfs:250,format=raw,cache=writeback,discard=on"
+          scsi0: "prox-storage:250,format=raw,cache=writeback,discard=on"
         scsihw: virtio-scsi-pci
         boot: c
         ostype: l26
