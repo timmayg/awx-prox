@@ -22,8 +22,9 @@
         scsihw: virtio-scsi-pci
         boot: c
         ostype: l26
-        net0: "virtio,bridge=vmbr0,queues=8"
-        onboot: yes
+        net:
+          net0: 'virtio,bridge=vmbr0,trunks="66"'
+        onboot: true
         agent: 1
       delegate_to: localhost
  
