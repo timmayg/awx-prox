@@ -23,7 +23,7 @@
         boot: c
         ostype: l26
         net:
-          net0: 'virtio,bridge=vmbr0,trunks="66"'
+          net0: 'virtio,bridge=vmbr0,tag="66"'
         onboot: true
         agent: 1
       delegate_to: localhost
