@@ -19,6 +19,9 @@
           format: raw
           efitype: 4m
           pre_enrolled_keys: false
+        tpmstate0:
+          storage: prox-storage
+          version: 2.0
         cores: 8
         sockets: 1
         cpu: host
