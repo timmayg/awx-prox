@@ -13,6 +13,7 @@
         node: "prox-host-01"
         vmid: "200"
         name: test-rhel-01
+        bios: ovmf        
         cores: 8
         sockets: 1
         cpu: host
