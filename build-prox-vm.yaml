@@ -11,8 +11,8 @@
         api_token_id: "{{ api_token_id | default(omit) }}"
         api_token_secret: "{{ api_token_secret | default(omit) }}"
         node: "prox-host-01"
-        vmid: "200"
-        name: test-rhel-01
+        vmid: "105"
+        name: aap
         bios: ovmf
         efidisk0:
           storage: prox-storage
@@ -25,7 +25,7 @@
         cores: 8
         sockets: 1
         cpu: host
-        memory: 32768  # 32 GB in MB
+        memory: 32768 
         scsi:
           scsi0: "prox-storage:250,format=raw,cache=writeback,discard=on"
         scsihw: virtio-scsi-pci
