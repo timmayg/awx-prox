@@ -25,9 +25,6 @@
         net0: "virtio,bridge=vmbr0,queues=8"
         onboot: yes
         agent: 1
-        ciuser: "{{ rhel_user }}"
-        cipassword: "{{ rhel_password }}"
-        sshkeys: "{{ lookup('file', '~/.ssh/id_rsa.pub') }}"
       delegate_to: localhost
  
     - name: Timmay HARD STOP this Playbook
