@@ -10,9 +10,9 @@
         api_user: "{{ api_user }}"
         api_token_id: "{{ api_token_id | default(omit) }}"
         api_token_secret: "{{ api_token_secret | default(omit) }}"
-        node: "prox-host-01"
-        vmid: "105"
-        name: aap
+        node: {{ node }}
+        vmid: {{ vmid }}
+        name: {{ vm_name }}
         bios: ovmf
         efidisk0:
           storage: prox-storage
@@ -22,10 +22,10 @@
         tpmstate0:
           storage: prox-storage
           version: 2.0
-        cores: 8
-        sockets: 1
+        cores: {{ cores }}
+        sockets: {{ sockets }}
         cpu: host
-        memory: 32768 
+        memory: {{ memory }}
         scsi:
           scsi0: "prox-storage:250,format=raw,cache=writeback,discard=on"
         scsihw: virtio-scsi-pci
