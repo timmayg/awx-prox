@@ -10,9 +10,9 @@
         api_user: "{{ api_user }}"
         api_token_id: "{{ api_token_id | default(omit) }}"
         api_token_secret: "{{ api_token_secret | default(omit) }}"
-        node: {{ node }}
-        vmid: {{ vmid }}
-        name: {{ vm_name }}
+        node: "{{ node }}"
+        vmid: "{{ vmid }}"
+        name: "{{ vm_name }}"
         bios: ovmf
         efidisk0:
           storage: prox-storage
@@ -22,10 +22,10 @@
         tpmstate0:
           storage: prox-storage
           version: 2.0
-        cores: {{ cores }}
-        sockets: {{ sockets }}
+        cores: "{{ cores }}"
+        sockets: "{{ sockets }}"
         cpu: host
-        memory: {{ memory }}
+        memory: "{{ memory }}"
         scsi:
           scsi0: "prox-storage:250,format=raw,cache=writeback,discard=on"
         scsihw: virtio-scsi-pci
