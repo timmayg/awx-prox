@@ -1,0 +1,41 @@
+---
+- name: Create a VM on Proxmox
+  hosts: localhost
+  gather_facts: no
+
+  tasks:
+    - name: Create RHEL 10 AAP Lab VM
+      community.general.proxmox_kvm:
+        api_host: "{{ api_host }}"
+        api_user: "{{ api_user }}"
+        api_token_id: "{{ api_token_id | default(omit) }}"
+        api_token_secret: "{{ api_token_secret | default(omit) }}"
+        node: "prox-host-01"
+        vmid: "105"
+        name: aap
+        bios: ovmf
+        efidisk0:
+          storage: prox-storage
+          format: raw
+          efitype: 4m
+          pre_enrolled_keys: false
+        tpmstate0:
+          storage: prox-storage
+          version: 2.0
+        cores: 8
+        sockets: 1
+        cpu: host
+        memory: 32768 
+        scsi:
+          scsi0: "prox-storage:250,format=raw,cache=writeback,discard=on"
+        scsihw: virtio-scsi-pci
+        boot: c
+        ostype: l26
+        net:
+          net0: 'virtio,bridge=vmbr0,queues=8,tag=66'
+        onboot: true
+        agent: 1
+      delegate_to: localhost
+ 
+    - name: Timmay HARD STOP this Playbook
+      ansible.builtin.meta: end_play
