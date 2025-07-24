@@ -1,7 +1,7 @@
 ---
 - name: Create a VM on Proxmox
   hosts: localhost
-  gather_facts: no
+  gather_facts: false
 
   tasks:
     - name: Creating a VM based on Survey Anwers
@@ -27,7 +27,7 @@
         cpu: host
         memory: "{{ memory }}"
         scsi:
-          scsi0: "prox-storage:250,format=raw,cache=writeback,discard=on"
+          scsi0: "prox-storage:{{ disk_size }},format=raw,cache=writeback,discard=on"
         scsihw: virtio-scsi-pci
         boot: c
         ostype: "{{ ostype }}"
