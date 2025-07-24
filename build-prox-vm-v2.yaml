@@ -4,7 +4,7 @@
   gather_facts: no
 
   tasks:
-    - name: Create RHEL 10 AAP Lab VM
+    - name: Creating a VM based on Survey Anwers
       community.general.proxmox_kvm:
         api_host: "{{ api_host }}"
         api_user: "{{ api_user }}"
@@ -30,7 +30,7 @@
           scsi0: "prox-storage:250,format=raw,cache=writeback,discard=on"
         scsihw: virtio-scsi-pci
         boot: c
-        ostype: l26
+        ostype: "{{ ostype }}"
         net:
           net0: 'virtio,bridge=vmbr0,queues=8,tag=66'
         onboot: true
