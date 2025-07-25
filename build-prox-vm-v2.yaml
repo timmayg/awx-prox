@@ -44,7 +44,7 @@
           scsi0: "prox-storage:{{ disk_size }},format=raw,cache=writeback,discard=on"
         scsihw: virtio-scsi-pci
         boot: c
-        ostype: "{{ ostype }}"
+        ostype: "{{ ostype_code }}"
         net:
           net0: 'virtio,bridge=vmbr0,queues=8,tag=66'
         onboot: true
