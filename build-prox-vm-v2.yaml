@@ -1,9 +1,23 @@
 ---
-- name: Create a VM on Proxmox
+- name: Create a VM on Proxmox v2.1
   hosts: localhost
   gather_facts: false
 
   tasks:
+    - name: Map survey input to Proxmox-compatible ostype
+      ansible.builtin.set_fact:
+        ostype_map:
+          "Windows 11/2022/2025": win11
+          "Windows 10/2016/2019": win10
+          "Windows 8.x/2012/2012r2": win8
+          "Windows 7/2008r2": win7
+          "Windows XP/2003": w2k3
+          "Linux6x": l26
+
+    - name: Extract proxmox-compatible ostype
+      ansible.builtin.set_fact:
+        ostype_code: "{{ ostype_map[ostype] }}"
+
     - name: Creating a VM based on Survey Anwers
       community.general.proxmox_kvm:
         api_host: "{{ api_host }}"
