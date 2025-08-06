@@ -39,7 +39,7 @@
     - name: Import qcow2 disk to Proxmox VM
       ansible.builtin.command: >
         qm importdisk {{ vmid }} {{ qcow2_file }} prox-storage
-      become: true
+      # become: true
 
     - name: Attach imported disk to Proxmox VM
       community.general.proxmox_kvm:
