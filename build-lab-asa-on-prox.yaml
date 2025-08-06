@@ -5,15 +5,6 @@
 
   tasks:
 
-    - name: Get the next available VMID
-      community.general.proxmox_vmid_next:
-        api_host: "{{ api_host }}"
-        api_user: "{{ api_user }}"
-        api_token_id: "{{ api_token_id }}"
-        api_token_secret: "{{ api_token_secret }}"
-      register: next_vmid_result
-
-
     - name: Map survey input to Proxmox-compatible ostype
       ansible.builtin.set_fact:
         ostype_map:
