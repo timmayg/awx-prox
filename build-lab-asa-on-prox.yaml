@@ -39,30 +39,44 @@
         node: "{{ node }}"
         vmid: "{{ vmid }}"
         name: "{{ vm_name }}"
-        bios: ovmf
-        efidisk0:
-          storage: prox-storage
-          format: raw
-          efitype: 4m
-          pre_enrolled_keys: false
-        tpmstate0:
-          storage: prox-storage
-          version: 2.0
-        cores: "{{ cores }}"
-        sockets: "{{ sockets }}"
+        bios: seabios
+        cores: 2
+        sockets: 1
         cpu: host
-        memory: "{{ memory }}"
+        memory: 4096
         scsi:
-          scsi0: "prox-storage:{{ disk_size }},format=raw,cache=writeback,discard=on"
         scsihw: virtio-scsi-pci
         boot: c
-        ostype: "{{ ostype_code }}"
+        ostype: l26
         net:
-          net0: 'virtio,bridge=vmbr0,queues=8,tag=66'
+          net0: 'virtio,bridge=vmbr0,queues=8'
+          net1: 'virtio,bridge=vmbr0,queues=8'
+          net2: 'virtio,bridge=vmbr0,queues=8'
+          net3: 'virtio,bridge=vmbr0,queues=8'
+          net4: 'virtio,bridge=vmbr0,queues=8'
+          net5: 'virtio,bridge=vmbr0,queues=8'
+          net6: 'virtio,bridge=vmbr0,queues=8'
+          net7: 'virtio,bridge=vmbr0,queues=8'
         onboot: true
         agent: 1
       delegate_to: localhost
 
+    - name: Import qcow2 disk to Proxmox VM
+      ansible.builtin.command: >
+        qm importdisk {{ vmid }} {{ qcow2_file }} {{ storage }}
+      become: yes
+
+    - name: Attach imported disk to Proxmox VM
+      community.general.proxmox_kvm:
+        api_host: "{{ api_host }}"
+        api_user: "{{ api_user }}"
+        api_token_id: "{{ api_token_id | default(omit) }}"
+        api_token_secret: "{{ api_token_secret | default(omit) }}"
+        vmid: "{{ vmid }}"
+        disks:
+          - scsi1=local:{{ vmid }}/vm-{{ vmid }}-disk-1.raw
+
 
     - name: Timmay HARD STOP this Playbook
       ansible.builtin.meta: end_play
+
