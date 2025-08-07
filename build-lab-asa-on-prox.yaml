@@ -41,7 +41,7 @@
 
     - name: Import qcow2 disk to Proxmox VM
       ansible.builtin.raw: >
-        qm importdisk {{ vmid }} {{ qcow2_file }} prox-storage
+        qm importdisk {{ vmid }} /var/lib/vz/template/qcow/{{ qcow2_file | basename }} prox-storage
       delegate_to: "{{ api_host }}"
 
 
