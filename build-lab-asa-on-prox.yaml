@@ -2,6 +2,9 @@
 - name: Create a VM on Proxmox v2.1
   hosts: localhost
   gather_facts: false
+  vars:
+    ansible_user: "{{ prox_user }}"
+    ansible_password: "{{ prox_password }}"
 
   tasks:
 
@@ -40,9 +43,7 @@
       ansible.builtin.command: >
         qm importdisk {{ vmid }} {{ qcow2_file }} prox-storage
       delegate_to: "{{ api_host }}"
-      vars:
-        ansible_user: "{{ prox_user }}"
-        ansible_password: "{{ prox_password }}"
+
 
     - name: Attach imported disk to Proxmox VM
       community.general.proxmox_kvm:
