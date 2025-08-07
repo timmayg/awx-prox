@@ -40,11 +40,10 @@
       delegate_to: localhost
 
     - name: Import qcow2 disk to Proxmox VM
-      ansible.builtin.command: >
+      ansible.builtin.raw: >
         qm importdisk {{ vmid }} {{ qcow2_file }} prox-storage
       delegate_to: "{{ api_host }}"
-      vars:
-        ansible_python_interpreter: "/bin/bash"
+
 
     - name: Attach imported disk to Proxmox VM
       community.general.proxmox_kvm:
